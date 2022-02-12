@@ -1,0 +1,75 @@
+{% include "companies/header.html" %}
+{% load static %}
+
+<header class="masthead" style="background-image: url({% static 'companies/images/index-bg.jpg' %})">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>IT-компании в Гомеле</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container px-5">
+  {% for c in page_obj %}
+    <div class="row gx-5 align-items-center">
+      <div class="col-lg-4 order-lg-2">
+        {% if c.logo %}
+        <div class="p-5"><img class="img-fluid" src="{{ c.logo.url }}" alt="Company Logo"/></div>
+        {% endif %}
+      </div>
+      <div class="col-lg-8 order-lg-1">
+        <div class="p-2">
+          <a href="{{ c.get_absolute_url }}">
+            <h2 class="display-4">{{ c.name }}</h2>
+          </a>
+          <p>{{ c.content|linebreaks|truncatewords:20 }}</p>
+        </div>
+      </div>
+    </div>
+    <hr class="my-2">
+  {% endfor %}
+</div>
+
+{% if page_obj.has_other_pages %}
+  <nav aria-label="...">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      {% endif %}
+
+      {% for p in page_obj.paginator.page_range %}
+        {% if page_obj.number == p %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#">{{ p }}<span class="sr-only"></span></a>
+          </li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+
+{% include "companies/footer.html" %}
+
+

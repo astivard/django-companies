@@ -1,0 +1,41 @@
+{% include "companies/header.html" %}
+{% load static %}
+
+<header class="masthead" style="background-image: url({% static 'companies/images/map-bg.jpg' %})">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>Карта IT-компаний</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<body>
+
+  <main class="mb-4">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <p>На карте показаны все офисы IT-компаний Гомеля. Метки могут показывать местоположение с погрешностью.</p>
+
+          <div id="map" class="map" style="width: 600px; height: 400px"></div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://api-maps.yandex.ru/2.1/?apikey={{ YANDEX_API_KEY }}&lang=ru_RU" type="text/javascript"></script>
+
+  {{ placemarks_data_list|json_script:"placemarks_data_list" }}
+  {% load static %}
+  <script src="{% static 'companies/js/map.js' %}" type="text/javascript">
+    var placemarks = JSON.parse(document.getElementById('placemarks_data_list').textContent)
+  </script>
+
+</body>
+
+{% include "companies/footer.html" %}
