@@ -137,7 +137,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mdravitsaAssistant@gmail.com'
-EMAIL_HOST_PASSWORD = os.eviron.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 DEFAULT_TO_EMAIL = "mdravitsa@mail.ru"
 
 YANDEX_API_KEY = os.environ.get("YANDEX_API_KEY")
