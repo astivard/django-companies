@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -72,7 +72,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'itgomel',
         'USER': 'astivard',
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -140,10 +140,10 @@ EMAIL_HOST_USER = 'mdravitsaAssistant@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_TO_EMAIL = "mdravitsa@mail.ru"
 
-YANDEX_API_KEY = os.getenv("YANDEX_API_KEY")
+YANDEX_API_KEY = os.environ.get("YANDEX_API_KEY")
 
-RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
