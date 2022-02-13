@@ -10,5 +10,5 @@ geopy==2.2.0
 Pillow==9.0.1
 psycopg2==2.8.5
 sqlparse==0.4.2
-whitenoise==3.3.0
+whitenoise==6.0.0
 django-database-url==1.0.3
