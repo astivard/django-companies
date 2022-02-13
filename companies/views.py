@@ -17,7 +17,7 @@ menu = [
 ]
 
 
-# @cache_page(60)
+@cache_page(60)
 def index(request):
     companies = Company.objects.filter(is_visible=True).distinct()
 
@@ -34,7 +34,7 @@ def index(request):
     return render(request, 'companies/index.html', context=context)
 
 
-# @cache_page(60)
+@cache_page(60)
 def chart(request):
     companies = Company.objects.filter(is_visible=True)
 
@@ -62,7 +62,7 @@ def chart(request):
     return render(request, 'companies/map.html', context=context)
 
 
-# @cache_page(60)
+@cache_page(60)
 def about(request):
     context = {
         'menu': menu,
@@ -71,7 +71,7 @@ def about(request):
     return render(request, 'companies/about.html', context=context)
 
 
-# @cache_page(60)
+@cache_page(60)
 def contact(request):
     form = ContactForm()
     msg_sent = False
@@ -106,7 +106,7 @@ def contact(request):
     return render(request, 'companies/contact.html', context=context)
 
 
-# @cache_page(60)
+@cache_page(60)
 def show_company(request, company_slug):
     company = get_object_or_404(Company, slug=company_slug)
     adresses = company.adress_set.all()
