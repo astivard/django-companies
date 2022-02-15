@@ -14,6 +14,9 @@
               geoObjects[i] = new ymaps.Placemark([placemarks[i].latitude, placemarks[i].longitude],
               {
                   hintContent: `<h6>${placemarks[i].iconContent}</h6> <big>${placemarks[i].hintContent}</big>`,
+                  balloonContentHeader: `${placemarks[i].hintContent}`,
+                  balloonContentHeader: placemarks[i].iconContent,
+                  balloonContentBody: `<big>${placemarks[i].hintContent}</big>`,
               },
               {
                   preset: 'islands#dotIcon',

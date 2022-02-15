@@ -15,6 +15,8 @@
               {
                   iconCaption: placemarks[i].iconContent,
                   hintContent: `<big>${placemarks[i].hintContent}</big>`,
+                  balloonContentHeader: placemarks[i].iconContent,
+                  balloonContentBody: `<big>${placemarks[i].hintContent}</big>`,
               },
               {
                   preset: 'islands#dotIcon',
