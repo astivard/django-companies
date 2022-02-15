@@ -17,8 +17,8 @@
   {% for c in page_obj %}
     <div class="row gx-5 align-items-center">
       <div class="col-lg-4 order-lg-2">
-        {% if c.logo %}
-        <div class="p-5"><img class="img-fluid" src="{{ c.logo.url }}" alt="Company Logo"/></div>
+        {% if c.logo_url %}
+          <div class="p-5"><img class="img-fluid" src="{{ c.logo_url }}" alt="Company Logo"/></div>
         {% endif %}
       </div>
       <div class="col-lg-8 order-lg-1">
