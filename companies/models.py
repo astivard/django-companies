@@ -9,7 +9,7 @@ class Company(models.Model):
     name = models.CharField(verbose_name='Компания', max_length=100)
     slug = models.SlugField(verbose_name='URL', max_length=255, unique=True, db_index=True)
     content = models.TextField(verbose_name='Описание', blank=True)
-    logo_url = models.CharField(verbose_name='URL логотипа', max_length=100, blank=True)
+    logo_url = models.TextField(verbose_name='URL логотипа', blank=True)
     is_visible = models.BooleanField(verbose_name='Отображается?', default=True)
 
     def __str__(self):

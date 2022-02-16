@@ -264,6 +264,7 @@ button:not(:disabled),
 .img-fluid {
 	max-width: 100%;
 	height: auto;
+	width: 200px;
 }
 
 .container {

@@ -19,7 +19,7 @@ menu = [
 
 @cache_page(60)
 def index(request):
-    companies = Company.objects.filter(is_visible=True).distinct()
+    companies = Company.objects.filter(is_visible=True)
 
     paginator = Paginator(companies, 5)
     page_number = request.GET.get('page')
