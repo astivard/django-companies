@@ -70,7 +70,7 @@ WSGI_APPLICATION = 'itgomel.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'itgomel',
+        'NAME': 'companies',
         'USER': 'astivard',
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': '127.0.0.1',
