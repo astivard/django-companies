@@ -1,50 +1,28 @@
-{% include "companies/header.html" %}
-{% load static %}
+{% extends 'companies/base.html' %}
 
-<header class="masthead" style="background-image: url({% static 'companies/images/contact-bg.jpg' %})">
-  <div class="container position-relative px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-7">
-        <div class="page-heading">
-          {% if msg_sent %}
-            <h1>Сообщение отправлено</h1>
-          {% else %}
-            <h1>Связь с автором</h1>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
+{% block content %}
 <main class="mb-4">
   <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         <p>Есть замечания или предложения? Пишите!</p>
         <div class="my-5">
-
-          <form action="{% url 'contact' %}" method="post">
-            {% csrf_token %}
-            {% for f in form %}
-              <div class="form-floating">
-                <p>
-                  <label for="{{ f.id_for_label }}">{{ f.label }}</label>
-                  {{ f }}
-                </p>
-                <div>{{ f.errors }}</div>
-              </div>
-            {% endfor %}
-            <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Отправить</button>
-          </form>
-
+        <form action="{% url 'contact' %}" method="post">
+          {% csrf_token %}
+          {% for f in form %}
+            <div class="form-floating">
+            <p>
+            <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+            {{ f }}
+            </p>
+            <div>{{ f.errors }}</div>
+            </div>
+          {% endfor %}
+          <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Отправить</button>
+        </form>
         </div>
       </div>
     </div>
   </div>
 </main>
-
-{% include "companies/footer.html" %}
-
-
-
+{% endblock %}

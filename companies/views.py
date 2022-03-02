@@ -26,10 +26,11 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     context = {
+        'background': 'index-bg.jpg',
         'companies': companies,
         'menu': menu,
         'page_obj': page_obj,
-        'title': 'Главная страница',
+        'title': 'IT-компании в Гомеле',
     }
     return render(request, 'companies/index.html', context=context)
 
@@ -54,9 +55,10 @@ def chart(request):
             placemarks_data_list.append(placemarks_data)
 
     context = {
+        'background': 'map-bg.jpg',
         'placemarks_data_list': placemarks_data_list,
         'menu': menu,
-        'title': 'Карта',
+        'title': 'Карта IT-компаний',
         'YANDEX_API_KEY': YANDEX_API_KEY,
     }
     return render(request, 'companies/map.html', context=context)
@@ -65,8 +67,9 @@ def chart(request):
 # @cache_page(60)
 def about(request):
     context = {
+        'background': 'about-bg.jpg',
         'menu': menu,
-        'title': 'О сайте',
+        'title': 'Описание сайта',
     }
     return render(request, 'companies/about.html', context=context)
 
@@ -97,10 +100,11 @@ def contact(request):
         form = ContactForm()
 
     context = {
+        'background': 'contact-bg.jpg',
         'menu': menu,
         'form': form,
         'msg_sent': msg_sent,
-        'title': 'Обратная связь',
+        'title': 'Связь с автором',
     }
 
     return render(request, 'companies/contact.html', context=context)
@@ -125,6 +129,7 @@ def show_company(request, company_slug):
         placemarks_data_list.append(placemarks_data)
 
     context = {
+        'background': 'index-bg.jpg',
         'placemarks_data_list': placemarks_data_list,
         'company': company,
         'menu': menu,

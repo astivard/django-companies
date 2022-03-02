@@ -1,10 +1,15 @@
 from django.contrib import admin
 
-from .models import Company, Adress
+from .models import Company, Adress, Resources
 
 
 class AdressInline(admin.TabularInline):
     model = Adress
+    extra = 1
+
+
+class ResourcesInline(admin.TabularInline):
+    model = Resources
     extra = 1
 
 
@@ -14,7 +19,7 @@ class CompanyAdmin(admin.ModelAdmin):
     search_fields = ('name', 'conent')
     prepopulated_fields = {'slug': ("name",)}
 
-    inlines = [AdressInline]
+    inlines = [AdressInline, ResourcesInline]
 
     fields = ('name', 'slug', 'content', 'logo_url', 'is_visible')
 

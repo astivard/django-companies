@@ -1,19 +1,6 @@
-{% include "companies/header.html" %}
-{% load static %}
+{% extends 'companies/base.html' %}
 
-<header class="masthead" style="background-image: url({% static 'companies/images/index-bg.jpg' %})">
-  <div class="container position-relative px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-7">
-        <div class="site-heading">
-          <h1>{{ company.name }}</h1>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<article>
+{% block content %}
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
@@ -29,20 +16,8 @@
         </p>
 
         <div id="map" class="map" style="width: 100%; height: 400px"></div>
-
+        <hr>
       </div>
     </div>
   </div>
-  <hr>
-</article>
-
-  <script src="https://api-maps.yandex.ru/2.1/?apikey={{ YANDEX_API_KEY }}&lang=ru_RU" type="text/javascript"></script>
-
-  {{ placemarks_data_list|json_script:"placemarks_data_list" }}
-
-  <script src="{% static 'companies/js/company_map.js' %}" type="text/javascript">
-    var placemarks = JSON.parse(document.getElementById('placemarks_data_list').textContent)
-  </script>
-
-{% include "companies/footer.html" %}
-
+{% endblock %}
