@@ -36,7 +36,7 @@ class Adress(models.Model):
         ordering = ['adress_text']
 
 
-class Resources(models.Model):
+class Resource(models.Model):
     company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE)
     resource = models.CharField(verbose_name='Ресурс', max_length=255)
     resource_url = models.CharField(verbose_name='Ссылка', max_length=255)

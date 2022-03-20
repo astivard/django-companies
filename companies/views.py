@@ -21,7 +21,7 @@ menu = [
 def index(request):
     companies = Company.objects.filter(is_visible=True).distinct()
 
-    paginator = Paginator(companies, 2)
+    paginator = Paginator(companies, 1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -30,7 +30,8 @@ def index(request):
         'companies': companies,
         'menu': menu,
         'page_obj': page_obj,
-        'title': 'IT-компании в Гомеле',
+        # 'title': 'IT-компании в Гомеле ',
+        'title': '--------------------',
     }
     return render(request, 'companies/index.html', context=context)
 

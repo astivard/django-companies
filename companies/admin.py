@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Company, Adress, Resources
+from .models import Company, Adress, Resource
 
 
 class AdressInline(admin.TabularInline):
@@ -9,7 +9,7 @@ class AdressInline(admin.TabularInline):
 
 
 class ResourcesInline(admin.TabularInline):
-    model = Resources
+    model = Resource
     extra = 1
 
 
