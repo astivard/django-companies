@@ -65,29 +65,35 @@
   <nav aria-label="...">
     <ul class="pagination justify-content-center">
 
+      {% if page_obj.has_previous %}
+        <li class="page-item" title="Предыдущая">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+      {% else %}
+        <li class="page-item disabled" title="Предыдущая">
+        <a class="page-link">
+      {% endif %}
+      <span aria-hidden="true" >&lsaquo;</span>
+      <span class="sr-only">Предыдущая</span>
+        </a>
+      </li>
 
-<!--      {% if page_obj.has_previous %}-->
-<!--        <li class="page-item" title="Предыдущая">-->
-<!--          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">-->
-<!--            <span aria-hidden="true">&lsaquo;</span>-->
-<!--            <span class="sr-only">Предыдущая</span>-->
-<!--          </a>-->
-<!--        </li>-->
-<!--      {% else %}-->
-<!--      {% if page_obj.has_previous %}-->
-<!--        <li class="page-item" title="Предыдущая">-->
-<!--      {% else %}-->
-
-<!--        <li class="page-item disabled" title="Предыдущая">-->
-<!--          <a class="page-link" aria-label="Предыдущая">-->
-<!--            <span aria-hidden="true">&lsaquo;</span>-->
-<!--            <span class="sr-only">Предыдущая</span>-->
-<!--          </a>-->
-<!--        </li>-->
-
-<!--      {% endif %}-->
-
-
+      {% if page_obj.number >= 3 %}
+        <li class="page-item" title="Первая">
+          <a class="page-link" href="?page=1">
+            <span aria-hidden="true">1</span>
+            <span class="sr-only">Следующая</span>
+          </a>
+        </li>
+      {% endif %}
+      {% if page_obj.number >= 3 and page_obj.number != 3%}
+        <li class="page-item disabled">
+          <a class="page-link">
+            <span aria-hidden="true">...</span>
+            <span class="sr-only">...</span>
+          </a>
+        </li>
+      {% endif %}
+      
       {% for p in page_obj.paginator.page_range %}
         {% if page_obj.number == p %}
           <li class="page-item disabled">
@@ -100,33 +106,34 @@
         {% endif %}
       {% endfor %}
 
-
-<!--      {% if page_obj.has_next and page_obj.number != page_obj.paginator.num_pages|add:-1 %}-->
-<!--        <li class="page-item disabled">-->
-<!--          <a class="page-link" href="?page={{ p }}">...</a>-->
-<!--        </li>-->
-<!--      {% endif %}-->
-<!--      {% if page_obj.number != page_obj.paginator.num_pages|add:-1 %}-->
-<!--        <li class="page-item">-->
-<!--          <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>-->
-<!--        </li>-->
-
-        <li class="page-item" title="Следующая">
-          <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-            <span aria-hidden="true">&rsaquo;</span>
+      {% if page_obj.number <= page_obj.paginator.num_pages|add:-3 %}
+        <li class="page-item disabled">
+          <a class="page-link">
+            <span aria-hidden="true">...</span>
+            <span class="sr-only">...</span>
+          </a>
+        </li>
+      {% endif %}
+      {% if page_obj.number <= page_obj.paginator.num_pages|add:-2 %}
+        <li class="page-item" title="Последняя">
+          <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+            <span aria-hidden="true">{{ page_obj.paginator.num_pages }}</span>
             <span class="sr-only">Следующая</span>
           </a>
         </li>
+      {% endif %}
 
-<!--      {% else %}-->
-<!--        <li class="page-item disabled">-->
-<!--          <a class="page-link" aria-label="Следующая">-->
-<!--            <span aria-hidden="true">&rsaquo;</span>-->
-<!--            <span class="sr-only">Следующая</span>-->
-<!--          </a>-->
-<!--        </li>-->
-<!--      {% endif %}-->
-
+      {% if page_obj.has_next %}
+        <li class="page-item" title="Следующая">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+      {% else %}
+        <li class="page-item disabled" title="Cледующая">
+        <a class="page-link">
+      {% endif %}
+      <span aria-hidden="true">&rsaquo;</span>
+      <span class="sr-only">Следующая</span>
+        </a>
+      </li>
 
     </ul>
   </nav>
