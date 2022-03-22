@@ -40,7 +40,9 @@
 			</div>
 		</div>
 	</nav>
+{% endblock mainmenu %}
 
+{% block background %}
   <header class="masthead" style="background-image: url({% static 'companies/images/' %}{{ background }})">
     <div class="container position-relative px-4 px-lg-5">
       <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -52,7 +54,7 @@
       </div>
     </div>
   </header>
-{% endblock mainmenu %}
+{% endblock background %}
 <!-- Конец блока навигации -->
 
 <!-- Блок контента -->
@@ -85,7 +87,7 @@
           </a>
         </li>
       {% endif %}
-      {% if page_obj.number >= 3 and page_obj.number != 3%}
+      {% if page_obj.number >= 3 and page_obj.number != 3 %}
         <li class="page-item disabled">
           <a class="page-link">
             <span aria-hidden="true">...</span>
@@ -93,8 +95,8 @@
           </a>
         </li>
       {% endif %}
-      
-      {% for p in page_obj.paginator.page_range %}
+
+      {% for p in paginator.page_range %}
         {% if page_obj.number == p %}
           <li class="page-item disabled">
             <a class="page-link" href="#">{{ p }}<span class="sr-only"></span></a>
@@ -106,7 +108,7 @@
         {% endif %}
       {% endfor %}
 
-      {% if page_obj.number <= page_obj.paginator.num_pages|add:-3 %}
+      {% if page_obj.number <= paginator.num_pages|add:-3 %}
         <li class="page-item disabled">
           <a class="page-link">
             <span aria-hidden="true">...</span>
@@ -114,10 +116,10 @@
           </a>
         </li>
       {% endif %}
-      {% if page_obj.number <= page_obj.paginator.num_pages|add:-2 %}
+      {% if page_obj.number <= paginator.num_pages|add:-2 %}
         <li class="page-item" title="Последняя">
-          <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
-            <span aria-hidden="true">{{ page_obj.paginator.num_pages }}</span>
+          <a class="page-link" href="?page={{ paginator.num_pages }}">
+            <span aria-hidden="true">{{ paginator.num_pages }}</span>
             <span class="sr-only">Следующая</span>
           </a>
         </li>

@@ -1,146 +1,102 @@
-from django.core.mail import send_mail
-from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404
-from django.views.decorators.cache import cache_page
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, FormView, TemplateView
 
-from .forms import *
-from .models import *
-from itgomel.settings import DEFAULT_FROM_EMAIL, RECIPIENTS_EMAIL, YANDEX_API_KEY
-
-
-menu = [
-    {'title': 'Главная', 'url_name': 'index'},
-    {'title': 'Карта', 'url_name': 'map'},
-    {'title': 'О сайте', 'url_name': 'about'},
-    {'title': 'Обратная связь', 'url_name': 'contact'},
-]
+from .forms import ContactForm
+from .models import Company
+from .services import menu, create_placemarks_data_list, create_placemarks_data_list_for_all_companies
 
 
-# @cache_page(60)
-def index(request):
-    companies = Company.objects.filter(is_visible=True).distinct()
+class CompanyListView(ListView):
+    """View class for the main page"""
+    paginate_by = 3
+    model = Company
+    template_name = 'companies/index.html'
+    context_object_name = 'company'
 
-    paginator = Paginator(companies, 1)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'IT-компании в Гомеле'
+        context['background'] = 'index-bg.jpg'
+        return context
 
-    context = {
-        'background': 'index-bg.jpg',
-        'companies': companies,
-        'menu': menu,
-        'page_obj': page_obj,
-        # 'title': 'IT-компании в Гомеле ',
-        'title': '--------------------',
-    }
-    return render(request, 'companies/index.html', context=context)
-
-
-# @cache_page(60)
-def chart(request):
-    companies = Company.objects.filter(is_visible=True)
-
-    placemarks_data_list = []
-
-    for company in companies:
-        adresses = company.adress_set.all()
-        for i in range(len(adresses)):
-            placemarks_data = {
-                'latitude': float(str(adresses[i]).split('|')[1].split(',')[0]) if str(adresses[i]).split('|')[
-                                                                                       1] != 'None' else None,
-                'longitude': float(str(adresses[i]).split('|')[1].split(',')[1]) if str(adresses[i]).split('|')[
-                                                                                        1] != 'None' else None,
-                'iconContent': str(company),
-                'hintContent': str(adresses[i]).split('|')[0],
-            }
-            placemarks_data_list.append(placemarks_data)
-
-    context = {
-        'background': 'map-bg.jpg',
-        'placemarks_data_list': placemarks_data_list,
-        'menu': menu,
-        'title': 'Карта IT-компаний',
-        'YANDEX_API_KEY': YANDEX_API_KEY,
-    }
-    return render(request, 'companies/map.html', context=context)
+    def get_queryset(self):
+        # return Company.objects.filter(is_visible=True).distinct()
+        return Company.objects.filter(is_visible=True)
 
 
-# @cache_page(60)
-def about(request):
-    context = {
-        'background': 'about-bg.jpg',
-        'menu': menu,
-        'title': 'Описание сайта',
-    }
-    return render(request, 'companies/about.html', context=context)
+class MapPageView(ListView):
+    """View class for the map page"""
+    model = Company
+    template_name = "companies/map.html"
+    context_object_name = 'company'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Карта IT-компаний'
+        context['background'] = 'map-bg.jpg'
+        context['placemarks_data_list'] = create_placemarks_data_list_for_all_companies(context['company'])
+        return context
+
+    def get_queryset(self):
+        return Company.objects.filter(is_visible=True)
 
 
-# @cache_page(60)
-def contact(request):
-    form = ContactForm()
-    msg_sent = False
+class AboutPageView(TemplateView):
+    """View class for the about page"""
+    template_name = "companies/about.html"
 
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            msg_sent = True
-
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
-
-            send_mail(name,
-                      f'{message}\n\n{email}',
-                      DEFAULT_FROM_EMAIL,
-                      RECIPIENTS_EMAIL,
-                      fail_silently=False
-                      )
-
-            form = ContactForm()
-    else:
-        form = ContactForm()
-
-    context = {
-        'background': 'contact-bg.jpg',
-        'menu': menu,
-        'form': form,
-        'msg_sent': msg_sent,
-        'title': 'Связь с автором',
-    }
-
-    return render(request, 'companies/contact.html', context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Описание сайта'
+        context['background'] = 'about-bg.jpg'
+        return context
 
 
-# @cache_page(60)
-def show_company(request, company_slug):
-    company = get_object_or_404(Company, slug=company_slug)
-    adresses = company.adress_set.all()
+class ContactPageView(FormView):
+    """View class for the contact page"""
+    form_class = ContactForm
+    template_name = "companies/contact.html"
+    context_object_name = 'company'
+    success_url = reverse_lazy('contact')
+    is_msg_sent = False
 
-    placemarks_data_list = []
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Связь с автором'
+        context['background'] = 'contact-bg.jpg'
+        context['is_msg_sent'] = ContactPageView.is_msg_sent
+        return context
 
-    for i in range(len(adresses)):
-        placemarks_data = {
-            'latitude': float(str(adresses[i]).split('|')[1].split(',')[0]) if str(adresses[i]).split('|')[
-                                                                                   1] != 'None' else None,
-            'longitude': float(str(adresses[i]).split('|')[1].split(',')[1]) if str(adresses[i]).split('|')[
-                                                                                    1] != 'None' else None,
-            'iconContent': str(company),
-            'hintContent': str(adresses[i]).split('|')[0],
-        }
-        placemarks_data_list.append(placemarks_data)
+    def form_valid(self, form):
+        form.send_email()
+        ContactPageView.is_msg_sent = True
+        return super().form_valid(form)
 
-    context = {
-        'background': 'index-bg.jpg',
-        'placemarks_data_list': placemarks_data_list,
-        'company': company,
-        'menu': menu,
-        'name': company.name,
-        'title': company,
-        'adresses': [str(adress).split('|')[0] for adress in adresses],
-        'YANDEX_API_KEY': YANDEX_API_KEY,
-    }
 
-    return render(request, 'companies/company.html', context=context)
+class CompanyDetailView(DetailView):
+    """View class for the certain company page"""
+    model = Company
+    template_name = 'companies/company.html'
+    slug_url_kwarg = 'company_slug'
+    context_object_name = 'company'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['background'] = 'index-bg.jpg'
+        context['title'] = context['company'].name
+        context['addresses'] = context['company'].adress_set.all()  # address
+        context['resources'] = context['company'].resource_set.all().values_list()
+        context['placemarks_data_list'] = create_placemarks_data_list(context['company'])
+        return context
+
+    def get_queryset(self):
+        return Company.objects.filter(is_visible=True)
 
 
 def page_not_found(request, exception):

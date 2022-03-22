@@ -4,9 +4,9 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('about/', views.about, name='about'),
-    path('map/', views.chart, name='map'),
-    path('contact/', views.contact, name='contact'),
-    path('<slug:company_slug>/', views.show_company, name='company'),
+    path('', views.CompanyListView.as_view(), name='index'),
+    path('about/', views.AboutPageView.as_view(), name='about'),
+    path('map/', views.MapPageView.as_view(), name='map'),
+    path('contact/', views.ContactPageView.as_view(), name='contact'),
+    path('<slug:company_slug>/', views.CompanyDetailView.as_view(), name='company'),
 ]

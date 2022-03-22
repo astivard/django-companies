@@ -137,7 +137,7 @@ CACHES = {
 }
 
 DEFAULT_FROM_EMAIL = 'mdravitsaAssistant@gmail.com'
-RECIPIENTS_EMAIL = ['mdravitsa@mail.ru', 'mdravitsa2@gmail.com', 'mdravitsa3@gmail.com']
+RECIPIENTS_EMAIL = ['mdravitsa@mail.ru']
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_USE_TLS = True

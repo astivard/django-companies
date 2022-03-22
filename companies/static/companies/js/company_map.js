@@ -1,7 +1,7 @@
   ymaps.ready(init);
 
   var placemarks = JSON.parse(document.getElementById('placemarks_data_list').textContent),
-  geoObjects= [];
+  geoObjects = [];
 
   function init() {
       var map = new ymaps.Map('map', {
