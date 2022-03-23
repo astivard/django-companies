@@ -7,7 +7,7 @@ function init() {
   var map = new ymaps.Map('map', {
       center: [52.42, 31.02],
       zoom: 11,
-      controls: ['zoomControl', 'fullscreenControl'],
+      controls: ['zoomControl', 'fullscreenControl', ],
   });
 
   for (var i = 0; i < placemarks.length; i++) {

@@ -5,24 +5,24 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
 
-        <p>{{ company.content|linebreaks }}</p>
+      <p>{{ company.content|linebreaks }}</p>
 
-        <p>
-          {% if resources %}
-            {% for resource in resources %}
-              <b>{{ resource.2 }}:</b> <a href="{{ resource.3 }}">{{ resource.3 }}</a>
-              <br>
-            {% endfor %}
-          {% endif %}
-        </p>
-        <p>
-          {% if addresses %}
-            {% for address in addresses %}
-              {{ address }}
-              <br>
-            {% endfor %}
-          {% endif %}
-        </p>
+      <p>
+        {% if resources %}
+          {% for resource in resources %}
+            <b>{{ resource.2 }}:</b> <a href="{{ resource.3 }}">{{ resource.3 }}</a>
+            <br>
+          {% endfor %}
+        {% endif %}
+      </p>
+      <p>
+        {% if addresses %}
+          {% for address in addresses %}
+            {{ address }}
+            <br>
+          {% endfor %}
+        {% endif %}
+      </p>
 
         <div id="map" class="map" style="width: 100%; height: 400px"></div>
         <hr>

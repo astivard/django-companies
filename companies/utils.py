@@ -7,6 +7,7 @@ menu = (
 
 
 class DataMixin:
+    """DataMixin class for common views data"""
     def get_user_context(self, **kwargs):
         context = kwargs
         context['menu'] = menu

@@ -1,23 +1,13 @@
 {% extends 'companies/base.html' %}
 {% load static %}
 
-{% block background %}
-  <header class="masthead" style="background-image: url({% static 'companies/images/' %}{{ background }})">
-    <div class="container position-relative px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-          <div class="site-heading">
-            {% if is_msg_sent %}
-              <h1>Сообщение отправлено</h1>
-            {% else %}
-              <h1>{{ title }}</h1>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-{% endblock background %}
+{% block title %}
+  {% if is_msg_sent %}
+    <h1>Сообщение отправлено</h1>
+  {% else %}
+    <h1>{{ title }}</h1>
+  {% endif %}
+{% endblock title %}
 
 {% block content %}
 <main class="mb-4">
