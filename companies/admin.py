@@ -19,7 +19,7 @@ class CompanyAdmin(admin.ModelAdmin):
     search_fields = ('name', 'conent')
     prepopulated_fields = {'slug': ("name",)}
 
-    inlines = [AdressInline, ResourcesInline]
+    inlines = [AddressInline, ResourcesInline]
 
     fields = ('name', 'slug', 'content', 'logo_url', 'is_visible')
 

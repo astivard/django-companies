@@ -28,13 +28,12 @@ class Address(models.Model):  # Правильно Address
     address_coords = models.CharField(verbose_name='Координаты адреса', max_length=255, blank=True)
 
     def __str__(self):
-        # return self.adress_text + '|' + self.adress_coords
-        return self.adress_text
+        return self.address_text
 
     class Meta:
         verbose_name = 'Адрес'
         verbose_name_plural = 'Адреса'
-        ordering = ['adress_text']
+        ordering = ['address_text']
 
 
 class Resource(models.Model):
