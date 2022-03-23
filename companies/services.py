@@ -3,14 +3,6 @@ from django.core.mail import send_mail
 from itgomel.settings import DEFAULT_FROM_EMAIL
 
 
-menu = (
-    {'title': 'Главная', 'url_name': 'index'},
-    {'title': 'Карта', 'url_name': 'map'},
-    {'title': 'О сайте', 'url_name': 'about'},
-    {'title': 'Обратная связь', 'url_name': 'contact'},
-)
-
-
 def create_placemark_data_dict(address, company_name) -> dict:
     placemark_data_dict = {
         'latitude': float(address[3].split(',')[0]),
