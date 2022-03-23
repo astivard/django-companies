@@ -193,7 +193,7 @@
 
 {{ placemarks_data_list|json_script:"placemarks_data_list" }}
 
-<script src="{% static 'companies/js/map.js' %}" type="text/javascript">
+<script src="{% static 'companies/js/company_map.js' %}" type="text/javascript">
   var placemarks = JSON.parse(document.getElementById('placemarks_data_list').textContent)
 </script>
 

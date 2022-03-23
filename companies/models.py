@@ -22,10 +22,10 @@ class Company(models.Model):
         ordering = [Lower('name'), 'id']
 
 
-class Adress(models.Model):  # Правильно Address
+class Address(models.Model):  # Правильно Address
     company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE)
-    adress_text = models.CharField(verbose_name='Адрес', max_length=255)
-    adress_coords = models.CharField(verbose_name='Координаты адреса', max_length=255, blank=True)
+    address_text = models.CharField(verbose_name='Адрес', max_length=255)
+    address_coords = models.CharField(verbose_name='Координаты адреса', max_length=255, blank=True)
 
     def __str__(self):
         # return self.adress_text + '|' + self.adress_coords

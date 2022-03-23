@@ -78,7 +78,7 @@ class CompanyDetailView(DataMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = context['company'].name
-        context['addresses'] = context['company'].adress_set.all()  # address
+        context['addresses'] = context['company'].address_set.all()
         context['resources'] = context['company'].resource_set.all().values_list()
         context['placemarks_data_list'] = create_placemarks_data_list(context['company'])
         context_def = self.get_user_context(background='index-bg.jpg')

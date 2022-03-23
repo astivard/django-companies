@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Company, Adress, Resource
+from .models import Company, Address, Resource
 
 
-class AdressInline(admin.TabularInline):
-    model = Adress
+class AddressInline(admin.TabularInline):
+    model = Address
     extra = 1
 
 

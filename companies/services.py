@@ -14,7 +14,7 @@ def create_placemark_data_dict(address, company_name) -> dict:
 
 
 def create_placemarks_data_list(company) -> list:
-    addresses = company.adress_set.all().values_list()
+    addresses = company.address_set.all().values_list()
     company_name = company.name
     placemarks_data_list = [create_placemark_data_dict(address, company_name) for address in addresses]
     return placemarks_data_list
@@ -23,7 +23,7 @@ def create_placemarks_data_list(company) -> list:
 def create_placemarks_data_list_for_all_companies(companies) -> list:
     placemarks_data_list = []
     for company in companies:
-        addresses = company.adress_set.all().values_list()
+        addresses = company.address_set.all().values_list()
         for address in addresses:
             placemark_data_dict = create_placemark_data_dict(address, str(company))
             placemarks_data_list.append(placemark_data_dict)
