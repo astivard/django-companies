@@ -1,6 +1,6 @@
 ymaps.ready(init);
 
-var placemarks = JSON.parse(document.getElementById('placemarks_data_list').textContent),
+var placemarks = JSON.parse(document.getElementById('placemarks_data_list').textContent);
 geoObjects = [];
 
 function init() {
