@@ -1,6 +1,6 @@
 from django.core.mail import send_mail
 
-from itgomel.settings import DEFAULT_FROM_EMAIL
+from itgomel.settings import RECIPIENTS_EMAIL, DEFAULT_FROM_EMAIL
 
 
 def create_placemark_data_dict(address, company_name) -> dict:
@@ -30,11 +30,18 @@ def create_placemarks_data_list_for_all_companies(companies) -> list:
     return placemarks_data_list
 
 
-def send_email(name: str, message: str, email: str, recepient_list: list):
-    send_mail(name,
-              f'{message}\n\n{email}',
-              DEFAULT_FROM_EMAIL,
-              recepient_list,
-              fail_silently=False
-              )
+def send_email(self):
+    name = self.cleaned_data['name']
+    email = self.cleaned_data['email']
+    message = self.cleaned_data['message']
 
+    send_mail(subject=name,
+              message=f'{message}\n\n\n\n'
+                      f'------------------'
+                      f'------------------'
+                      f'------------------'
+                      f'\nEmail: {email}',
+              from_email=DEFAULT_FROM_EMAIL,
+              recipient_list=RECIPIENTS_EMAIL,
+              fail_silently=False,
+              )

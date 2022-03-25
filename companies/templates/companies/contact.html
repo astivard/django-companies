@@ -1,14 +1,6 @@
 {% extends 'companies/base.html' %}
 {% load static %}
 
-{% block title %}
-  {% if is_msg_sent %}
-    <h1>Сообщение отправлено</h1>
-  {% else %}
-    <h1>{{ title }}</h1>
-  {% endif %}
-{% endblock title %}
-
 {% block content %}
 <main class="mb-4">
   <div class="container px-4 px-lg-5">

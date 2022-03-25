@@ -53,19 +53,25 @@ class ContactPageView(DataMixin, FormView):
     form_class = ContactForm
     template_name = "companies/contact.html"
     context_object_name = 'company'
-    success_url = reverse_lazy('contact')
-    is_msg_sent = False
+    success_url = reverse_lazy('succes')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        def_context = self.get_user_context(title='Связь с автором', background='contact-bg.jpg',
-                                            is_msg_sent=ContactPageView.is_msg_sent)
+        def_context = self.get_user_context(title='Связь с автором',
+                                            background='contact-bg.jpg')
         return {**context, **def_context}
 
     def form_valid(self, form):
         form.send_email()
-        ContactPageView.is_msg_sent = True
         return super().form_valid(form)
+
+
+class SuccesPageView(DataMixin, TemplateView):
+    """View class for the succes page after sending email"""
+    template_name = "companies/message.html"
+
+    def get_context_data(self, **kwargs):
+        return self.get_user_context(title='Сообщение отправлено', background='contact-bg.jpg')
 
 
 class CompanyDetailView(DataMixin, DetailView):
@@ -89,4 +95,12 @@ class CompanyDetailView(DataMixin, DetailView):
 
 
 def page_not_found(request, exception):
-    return render(request, 'companies/page-not-found.html', {'menu': menu, 'background': 'index-bg.jpg'})
+    return render(request, 'companies/message.html', {'menu': menu,
+                                                      'background': 'index-bg.jpg',
+                                                      'title': 'Страница не найдена'})
+
+
+def server_error(request, *args, **argv):
+    return render(request, 'companies/message.html', {'menu': menu,
+                                                      'background': 'index-bg.jpg',
+                                                      'title': 'Ошибка сервера'})
