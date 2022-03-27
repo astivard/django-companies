@@ -90,9 +90,6 @@ class CompanyDetailView(DataMixin, DetailView):
         context_def = self.get_user_context(background='index-bg.jpg')
         return {**context, **context_def}
 
-    def get_queryset(self):
-        return Company.objects.filter(is_visible=True)
-
 
 def page_not_found(request, exception):
     return render(request, 'companies/message.html', {'menu': menu,
