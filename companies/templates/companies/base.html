@@ -6,6 +6,8 @@
   <meta property="og:site_name" content="ItGomel">
   <meta property="og:url" content="{% url 'index' %}">
   <meta property="og:image" content="{% static 'favicon/icon.png' %}">
+  <meta property="og:image:width" content="968">
+  <meta property="og:image:height" content="504">
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -82,83 +84,8 @@
 <!-- Конец блока контента -->
 
 <!-- Блок пагинации -->
-{% if page_obj.has_other_pages %}
-  <nav aria-label="...">
-    <ul class="pagination justify-content-center">
-
-      {% if page_obj.has_previous %}
-        <li class="page-item" title="Предыдущая">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-      {% else %}
-        <li class="page-item disabled" title="Предыдущая">
-        <a class="page-link">
-      {% endif %}
-      <span aria-hidden="true" >&lsaquo;</span>
-      <span class="sr-only">Предыдущая</span>
-        </a>
-      </li>
-
-      {% if page_obj.number >= 3 %}
-        <li class="page-item" title="Первая">
-          <a class="page-link" href="?page=1">
-            <span aria-hidden="true">1</span>
-            <span class="sr-only">Следующая</span>
-          </a>
-        </li>
-      {% endif %}
-      {% if page_obj.number >= 3 and page_obj.number != 3 %}
-        <li class="page-item disabled">
-          <a class="page-link">
-            <span aria-hidden="true">...</span>
-            <span class="sr-only">...</span>
-          </a>
-        </li>
-      {% endif %}
-
-      {% for p in paginator.page_range %}
-        {% if page_obj.number == p %}
-          <li class="page-item disabled">
-            <a class="page-link" href="#">{{ p }}<span class="sr-only"></span></a>
-          </li>
-        {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ p }}">{{ p }}</a>
-          </li>
-        {% endif %}
-      {% endfor %}
-
-      {% if page_obj.number <= paginator.num_pages|add:-3 %}
-        <li class="page-item disabled">
-          <a class="page-link">
-            <span aria-hidden="true">...</span>
-            <span class="sr-only">...</span>
-          </a>
-        </li>
-      {% endif %}
-      {% if page_obj.number <= paginator.num_pages|add:-2 %}
-        <li class="page-item" title="Последняя">
-          <a class="page-link" href="?page={{ paginator.num_pages }}">
-            <span aria-hidden="true">{{ paginator.num_pages }}</span>
-            <span class="sr-only">Следующая</span>
-          </a>
-        </li>
-      {% endif %}
-
-      {% if page_obj.has_next %}
-        <li class="page-item" title="Следующая">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-      {% else %}
-        <li class="page-item disabled" title="Cледующая">
-        <a class="page-link">
-      {% endif %}
-      <span aria-hidden="true">&rsaquo;</span>
-      <span class="sr-only">Следующая</span>
-        </a>
-      </li>
-
-    </ul>
-  </nav>
-{% endif %}
+{% block pagination %}
+{% endblock pagination %}
 <!-- Конец блока пагинации -->
 
 <!-- Footer страницы-->
