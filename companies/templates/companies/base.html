@@ -5,8 +5,7 @@
   <meta property="og:title" content="{{ title }}">
   <meta property="og:site_name" content="ItGomel">
   <meta property="og:url" content="{% url 'index' %}">
-  <meta property="og:description" content="">
-  <meta property="og:image" content="{% static 'favicon/favicon.png' %}">
+  <meta property="og:image" content="{% static 'favicon/icon.png' %}">
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -58,6 +57,24 @@
   </header>
 {% endblock background %}
 <!-- Конец блока навигации -->
+
+<!-- Строка поиска -->
+{% if request.path == '/' or request.path == '/search/' %}
+  <div class="container px-5">
+    <div class="row gx-5 align-items-center">
+      <div class="col-lg-8 order-lg-1">
+        <div class="input-group rounded">
+          <form method="get" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input type="search" class="form-control rounded" placeholder="&#128269; Найти компанию..."
+                   aria-label="Search" aria-describedby="search-addon" name="q"/>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+<!-- Конец строки поиска -->
 
 <!-- Блок контента -->
 {% block content %}

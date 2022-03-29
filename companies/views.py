@@ -24,6 +24,22 @@ class CompanyListView(DataMixin, ListView):
         return Company.objects.filter(is_visible=True)
 
 
+class CompanySearchView(DataMixin, ListView):
+    """View class for search results"""
+    model = Company
+    template_name = 'companies/search.html'
+    context_object_name = 'company'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context_def = self.get_user_context(title='Результаты поиска', background='index-bg.jpg')
+        return {**context, **context_def}
+
+    def get_queryset(self):
+        search_query = self.request.GET.get('q')
+        return Company.objects.filter(is_visible=True, name__icontains=search_query), search_query
+
+
 class MapPageView(DataMixin, ListView):
     """View class for the map page"""
     model = Company

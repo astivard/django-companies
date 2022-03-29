@@ -1,0 +1,28 @@
+{% extends 'companies/base.html' %}
+
+{% block content %}
+	<div class="container px-5">
+		{% if company.0 %}
+			{% for c in company.0 %}
+				<div class="row gx-5 align-items-center">
+					<div class="col-lg-4 order-lg-2">
+						{% if c.logo_url %}
+							<div class="p-5"><img class="img-fluid" src="{{ c.logo_url }}" alt="Company Logo"/></div>
+						{% endif %}
+					</div>
+					<div class="col-lg-8 order-lg-1">
+						<div class="p-2">
+							<a href="{{ c.get_absolute_url }}">
+								<h2 class="display-4">{{ c.name }}</h2>
+							</a>
+							<p>{{ c.content|linebreaks|truncatewords:20 }}</p>
+						</div>
+					</div>
+				</div>
+				<hr class="my-2">
+			{% endfor %}
+		{% else %}
+			<p>По запросу <b>{{ company.1 }}</b> ничего не найдено.</p>
+		{% endif %}
+	</div>
+{% endblock %}
