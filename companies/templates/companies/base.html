@@ -70,8 +70,10 @@
             {% csrf_token %}
             <input type="search" class="form-control rounded" placeholder="&#128269; Найти компанию..."
                    aria-label="Search" aria-describedby="search-addon" name="q"/>
-          </form>
+            </form>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всего компаний: {{ page_obj.paginator.count }}
         </div>
+
       </div>
     </div>
   </div>
